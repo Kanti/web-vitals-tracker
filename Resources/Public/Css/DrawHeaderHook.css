@@ -1,0 +1,53 @@
+:root {
+  --webvitalstracker-transition-time: 500ms;
+  --webvitalstracker-icon-edge-length: 40px;
+}
+
+.webvitalstracker-status-icon {
+  display: inline-block;
+
+  background-image: url('../Icons/StatusSprite.png');
+  background-repeat: no-repeat;
+
+  height: var(--webvitalstracker-icon-edge-length);
+  width: var(--webvitalstracker-icon-edge-length);
+  background-size: calc(var(--webvitalstracker-icon-edge-length) * 600 / 220) var(--webvitalstracker-icon-edge-length);
+}
+
+.webvitalstracker-status-green {
+  background-position: 104.2% 0;
+}
+
+.webvitalstracker-status-yellow {
+  background-position: 51% 0;
+}
+
+.webvitalstracker-status-red {
+  background-position: -1.25% 0;
+}
+
+.webvitalstracker-showOnHoverRoot .webvitalstracker-showOnHover {
+  opacity: 20%;
+  transition: opacity var(--webvitalstracker-transition-time);
+}
+
+.webvitalstracker-showOnHoverRoot:hover .webvitalstracker-showOnHover {
+  opacity: 100%;
+}
+
+.webvitalstracker-box {
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  transition: border var(--webvitalstracker-transition-time);
+}
+
+.webvitalstracker-box .img {
+  vertical-align: baseline;
+}
+
+.webvitalstracker-box:hover {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.webvitalstracker-statusIcon {
+  float: left;
+}

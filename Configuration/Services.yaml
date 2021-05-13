@@ -1,0 +1,21 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Kanti\WebVitalsTracker\:
+    resource: '../Classes/*'
+
+  Kanti\WebVitalsTracker\Middleware\MeasureMiddleware:
+    public: true
+
+  Kanti\WebVitalsTracker\Domain\Repository\MeasureRepository:
+    public: true
+
+  Kanti\WebVitalsTracker\Hooks\PageHeaderHook:
+    public: true
+
+  Kanti\WebVitalsTracker\Command\GenerateRandomTestDataCommand:
+    tags:
+      - { name: 'console.command', command: 'webvitalstracker:generateTestData', description: 'Generates random test data vor the web_vitals_tracker extension' }
