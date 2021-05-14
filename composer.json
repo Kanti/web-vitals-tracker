@@ -3,7 +3,7 @@
   "type": "typo3-cms-extension",
   "description": "Real Measurement Web Vitals Statistic for your TYPO3",
   "license": [
-    "GPL-2.0-or-later"
+    "GPL-3.0-or-later"
   ],
   "authors": [
     {
@@ -28,14 +28,18 @@
     }
   },
   "require": {
-    "typo3/cms-core": "^11.2.0",
-    "typo3/cms-fluid": "^11.2.0",
-    "typo3/cms-backend": "^11.2.0",
-    "ext-json": "^8.0"
+    "ext-json": "^8.0",
+    "ocramius/package-versions": "^2.3.0",
+    "typo3/cms-backend": "^11.0.0",
+    "typo3/cms-core": "^11.0.0",
+    "typo3/cms-fluid": "^11.0.0"
   },
   "require-dev": {
     "pluswerk/grumphp-config": "^5.0.0",
     "saschaegerer/phpstan-typo3": "dev-master",
     "phpstan/extension-installer": "^1.1"
+  },
+  "config": {
+    "sort-packages": true
   }
 }

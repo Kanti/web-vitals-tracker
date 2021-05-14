@@ -7,7 +7,7 @@ _[More information about Web Vitals](https://web.dev/vitals/)_
 
 ```composer req kanti/web-vitals-tracker```
 
-<!-- Or via [TER](https://extensions.typo3.org/extension/web_vitals_tracker) (not for now 😢)-->
+Or via [the Extension Reposiotry](https://extensions.typo3.org/extension/web_vitals_tracker)
 
 ## How dose it work 🦾
 
