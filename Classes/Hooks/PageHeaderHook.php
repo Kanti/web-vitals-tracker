@@ -5,22 +5,32 @@ declare(strict_types=1);
 namespace Kanti\WebVitalsTracker\Hooks;
 
 use Kanti\WebVitalsTracker\Domain\Repository\MeasureRepository;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
 final class PageHeaderHook
 {
+    private MeasureRepository $measureRepository;
+    private StandaloneView $templateView;
+    private PageRenderer $pageRenderer;
+
     public function __construct(
-        private MeasureRepository $measureRepository,
-        private StandaloneView $templateView,
-        private PageRenderer $pageRenderer
+        ?MeasureRepository $measureRepository = null,
+        ?StandaloneView $templateView = null,
+        ?PageRenderer $pageRenderer = null
     ) {
+        $this->measureRepository = $measureRepository ?? GeneralUtility::makeInstance(MeasureRepository::class);
+        $this->templateView = $templateView ?? GeneralUtility::makeInstance(StandaloneView::class);
+        $this->pageRenderer = $pageRenderer ?? GeneralUtility::makeInstance(PageRenderer::class);
 
         $this->templateView->getRenderingContext()->getTemplatePaths()->fillDefaultsByPackageName('web_vitals_tracker');
         $this->templateView->setTemplate('PageHeaderHook');
     }
 
+    /**
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function render(): string
     {
         $pageId = (int)$_GET['id'];
@@ -33,7 +43,7 @@ final class PageHeaderHook
             return '';
         }
 
-        $data = $this->measureRepository->findData($pageId, /*$sysLanguageUid*/ null);
+        $data = $this->measureRepository->findData($pageId);
         if (empty($data)) {
             return '';
         }

@@ -4,15 +4,20 @@ declare(strict_types=1);
 
 namespace Kanti\WebVitalsTracker\Domain\Repository;
 
-use Doctrine\DBAL\ForwardCompatibility\DriverStatement;
+use Doctrine\DBAL\Driver\Statement;
+use InvalidArgumentException;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final class MeasureRepository
 {
     public const TABLENAME = 'tx_webvitalstracker_measure';
 
-    public function __construct(private ConnectionPool $connectionPool)
+    private ConnectionPool $connectionPool;
+
+    public function __construct(?ConnectionPool $connectionPool = null)
     {
+        $this->connectionPool = $connectionPool ?? GeneralUtility::makeInstance(ConnectionPool::class);
     }
 
     /**
@@ -21,7 +26,7 @@ final class MeasureRepository
      * @return array<int, array<string, mixed>>|null
      * @throws \Doctrine\DBAL\Exception
      */
-    public function findData(int $pageId, int $sysLanguageUid = null): ?array
+    public function findData(int $pageId, ?int $sysLanguageUid = null): ?array
     {
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::TABLENAME)->getConcreteQueryBuilder();
         $queryBuilder->select(
@@ -39,15 +44,18 @@ final class MeasureRepository
             $queryBuilder->andWhere($queryBuilder->expr()->eq('sys_language', $queryBuilder->createNamedParameter($sysLanguageUid)));
         }
         $statement = $queryBuilder->execute();
-        assert($statement instanceof DriverStatement);
+        assert($statement instanceof Statement);
         return $statement->fetch() ?: null;
     }
 
+    /**
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function insertOrUpdateMeasure(string $uuid, string $name, float $value, int $counter, int $pageUid, int $sysLanguageUid): void
     {
         $possibleNames = ['cls', 'fcp', 'fid', 'lcp', 'ttfb'];
         if (!in_array($name, $possibleNames, true)) {
-            throw new \InvalidArgumentException(sprintf('measure name must be one of %s got %s', implode(',', $possibleNames), $name));
+            throw new InvalidArgumentException(sprintf('measure name must be one of %s got %s', implode(',', $possibleNames), $name));
         }
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::TABLENAME);
         $sql = $queryBuilder->insert(self::TABLENAME)

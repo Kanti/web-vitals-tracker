@@ -15,14 +15,12 @@ use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
+use function json_decode;
+
 final class MeasureMiddleware implements MiddlewareInterface
 {
-
-    public function __construct(private ContainerInterface $container)
-    {
-    }
-
     /**
+     * @throws \Doctrine\DBAL\Exception
      * @throws \JsonException
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -37,11 +35,11 @@ final class MeasureMiddleware implements MiddlewareInterface
         $language = $request->getAttribute('language');
         assert($language instanceof SiteLanguage);
 
-        $measureRepository = $this->container->get(MeasureRepository::class);
+        $measureRepository = GeneralUtility::makeInstance(MeasureRepository::class);
         assert($measureRepository instanceof MeasureRepository);
 
         $bodyString = $request->getBody()->getContents();
-        $body = \json_decode($bodyString, true, 512, JSON_THROW_ON_ERROR);
+        $body = json_decode($bodyString, true, 512, JSON_THROW_ON_ERROR);
 
         $measureRepository->insertOrUpdateMeasure(
             $body['requestUuid'],

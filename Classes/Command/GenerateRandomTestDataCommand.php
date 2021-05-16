@@ -10,14 +10,21 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final class GenerateRandomTestDataCommand extends Command
 {
-    public function __construct(string $name = null, private ConnectionPool $connectionPool)
+    private ConnectionPool $connectionPool;
+
+    public function __construct(string $name = null, ?ConnectionPool $connectionPool = null)
     {
+        $this->connectionPool = $connectionPool ?? GeneralUtility::makeInstance(ConnectionPool::class);
         parent::__construct($name);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $count = 1_000_000;
