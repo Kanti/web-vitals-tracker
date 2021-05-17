@@ -16,5 +16,6 @@ CREATE TABLE tx_webvitalstracker_measure
     ttfb         float     DEFAULT NULL,
     counter_ttfb int(11)   DEFAULT '0' NOT NULL,
 
-    UNIQUE request (uuid, page_id, sys_language)
+    UNIQUE request (uuid, page_id, sys_language),
+    KEY page (page_id)
 );

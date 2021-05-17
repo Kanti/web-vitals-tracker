@@ -51,12 +51,9 @@ after 1_000_000 requests MySQL gets pretty slow (1,2s on my Laptop)
 
 ## What I want to do 🗓️
 
-- make it compatible with TYPO3 9 and 10
-- make it compatible with php 7.2? 7.3? 7.4!
+- make it compatible with php 7.2? 7.3?
 - save the requests of elder data in aggregate form (to allow large websites to use it)
 - add a Dashboard Component
-- release into the TER
-- [auto release int the TER](https://gist.github.com/einpraegsam/cefeb79a6904e113d208363a4d8aa418)
 
 ## Author 🚶‍♂️
 

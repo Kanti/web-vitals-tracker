@@ -31,6 +31,18 @@
   background-position: -1.25% 0;
 }
 
+.webvitalstracker-progress-green {
+  background-color: #0bce6a;
+}
+
+.webvitalstracker-progress-yellow {
+  background-color: #ffa401;
+}
+
+.webvitalstracker-progress-red {
+  background-color: #ff4e42;
+}
+
 .webvitalstracker-showOnHoverRoot .webvitalstracker-showOnHover {
   opacity: 20%;
   transition: opacity var(--webvitalstracker-transition-time);

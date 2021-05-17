@@ -24,17 +24,17 @@
   valueYellow: 10,
   valueRed: 25,
   unit: '%',
-  decimals: 2
+  decimals: 1
   }"/>
   <f:render section="ValueCard" arguments="{
   value: fcp,
   title: 'FCP',
   tooltip: 'First Contentful Paint',
   link: 'https://web.dev/fcp/',
-  valueYellow: 1000,
-  valueRed: 3000,
-  unit: 'ms',
-  decimals: 0
+  valueYellow: 1,
+  valueRed: 3,
+  unit: 's',
+  decimals: 1
   }"/>
   <f:render section="ValueCard" arguments="{
   value: fid,
@@ -51,10 +51,10 @@
   title: 'LCP',
   tooltip: 'Largest Contentful Paint',
   link: 'https://web.dev/lcp/',
-  valueYellow: 2500,
-  valueRed: 4000,
-  unit: 'ms',
-  decimals: 0
+  valueYellow: 2.5,
+  valueRed: 4,
+  unit: 's',
+  decimals: 1
   }"/>
   <f:render section="ValueCard" arguments="{
   value: ttfb,
@@ -72,12 +72,12 @@
 <f:section name="ValueCard">
   <div class="col-sm-2 webvitalstracker-card" title="{tooltip}">
     <span class="webvitalstracker-statusIcon">
-      <f:if condition="{value} < {valueYellow}">
+      <f:if condition="{value.avg} < {valueYellow}">
         <f:then>
           <span class="webvitalstracker-status-icon webvitalstracker-status-green"></span>
         </f:then>
         <f:else>
-          <f:if condition="{value} < {valueRed}">
+          <f:if condition="{value.avg} < {valueRed}">
             <f:then>
               <span class="webvitalstracker-status-icon webvitalstracker-status-yellow"></span>
             </f:then>
@@ -89,9 +89,16 @@
     </span>
     <span style="float: right"><f:render section="InfoIcon" arguments="{link: link}"/></span>
     <p>
-      <strong>{value -> f:format.number(decimals: decimals)}{unit}</strong><br>
+      <strong>{value.avg -> f:format.number(decimals: decimals)}</strong>{unit}<br>
       {title}
     </p>
+    <f:if condition="{value.low} || {value.medium} || {value.high}">
+      <div class="progress" style="height: 3px;">
+        <div class="progress-bar webvitalstracker-progress-green" role="progressbar" style="width: {value.low * 100}%" aria-valuenow="{value.low * 100}" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress-bar webvitalstracker-progress-yellow" role="progressbar" style="width: {value.medium * 100}%" aria-valuenow="{value.medium * 100}" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress-bar webvitalstracker-progress-red" role="progressbar" style="width: {value.high * 100}%" aria-valuenow="{value.high * 100}" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+    </f:if>
   </div>
 </f:section>
 

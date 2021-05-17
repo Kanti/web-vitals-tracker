@@ -44,13 +44,23 @@ final class PageHeaderHook
         }
 
         $data = $this->measureRepository->findData($pageId);
-        if (empty($data)) {
+        if (!$data) {
             return '';
         }
+        $requestCount = $data['requestCount'];
+        unset($data['requestCount']);
+        $percentages = [];
+        if ($requestCount <= 40_000) {
+            $percentages = $this->measureRepository->findPercentageData($pageId);
+        }
+        foreach ($data as $webVital => $average) {
+            $percentages[$webVital]['avg'] = $average;
+        }
+        $percentages['requestCount'] = $requestCount;
 
         $this->pageRenderer->addCssFile('EXT:web_vitals_tracker/Resources/Public/Css/DrawHeaderHook.css');
 
-        $this->templateView->assignMultiple($data);
+        $this->templateView->assignMultiple($percentages);
 
         return $this->templateView->render();
     }
