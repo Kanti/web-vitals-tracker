@@ -1,4 +1,4 @@
-name: TER release
+name: Tasks
 
 on: [push, pull_request]
 
@@ -16,7 +16,7 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
-      - run: composer install --no-interaction --no-progress --no-suggest --ignore-platform-reqs --no-plugins --no-scripts
+      - run: composer install --no-interaction --no-progress --ignore-platform-reqs
       - run: ./vendor/bin/grumphp run --ansi
 
   ter-release:
