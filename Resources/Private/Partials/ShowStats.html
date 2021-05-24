@@ -1,0 +1,112 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:webvitalstracker="http://typo3.org/ns/Kanti/WebVitalsTracker/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:section name="Main">
+  <div class="t3-page-ce">
+    <div class="row webvitalstracker-showOnHoverRoot webvitalstracker-box">
+      <div class="cols-sm-12 webvitalstracker-headline">
+        <h2><img class="extension-icon img" src="/typo3conf/ext/web_vitals_tracker/Resources/Public/Icons/Extension.svg" alt="">
+          Web Vitals Data:
+          <f:render section="InfoIcon" arguments="{link: 'https://web.dev/vitals/'}"/>
+        </h2>
+      </div>
+      <div class="col-sm-2 webvitalstracker-card">
+        <p>
+          <strong>{requestCount -> f:format.number(decimals: 0)}</strong><br>
+          Requests
+        </p>
+      </div>
+      <f:render section="ValueCard" arguments="{
+  value: cls,
+  title: 'CLS',
+  tooltip: 'Cumulative Layout Shift',
+  link: 'https://web.dev/cls/',
+  valueYellow: 10,
+  valueRed: 25,
+  unit: '%',
+  decimals: 1
+  }"/>
+      <f:render section="ValueCard" arguments="{
+  value: fcp,
+  title: 'FCP',
+  tooltip: 'First Contentful Paint',
+  link: 'https://web.dev/fcp/',
+  valueYellow: 1,
+  valueRed: 3,
+  unit: 's',
+  decimals: 1
+  }"/>
+      <f:render section="ValueCard" arguments="{
+  value: fid,
+  title: 'FID',
+  tooltip: 'First Input Delay',
+  link: 'https://web.dev/fid/',
+  valueYellow: 100,
+  valueRed: 300,
+  unit: 'ms',
+  decimals: 0
+  }"/>
+      <f:render section="ValueCard" arguments="{
+  value: lcp,
+  title: 'LCP',
+  tooltip: 'Largest Contentful Paint',
+  link: 'https://web.dev/lcp/',
+  valueYellow: 2.5,
+  valueRed: 4,
+  unit: 's',
+  decimals: 1
+  }"/>
+      <f:render section="ValueCard" arguments="{
+  value: ttfb,
+  title: 'TTFB',
+  tooltip: 'Time to First Byte',
+  link: 'https://web.dev/time-to-first-byte/',
+  valueYellow: 100,
+  valueRed: 600,
+  unit: 'ms',
+  decimals: 0
+  }"/>
+    </div>
+  </div>
+</f:section>
+
+<f:section name="ValueCard">
+  <div class="col-sm-2 webvitalstracker-card" title="{tooltip}">
+    <span class="webvitalstracker-statusIcon">
+      <f:if condition="{value.avg} < {valueYellow}">
+        <f:then>
+          <span class="webvitalstracker-status-icon webvitalstracker-status-green"></span>
+        </f:then>
+        <f:else>
+          <f:if condition="{value.avg} < {valueRed}">
+            <f:then>
+              <span class="webvitalstracker-status-icon webvitalstracker-status-yellow"></span>
+            </f:then>
+            <f:else>
+              <span class="webvitalstracker-status-icon webvitalstracker-status-red"></span></f:else>
+          </f:if>
+        </f:else>
+      </f:if>
+    </span>
+    <span style="float: right"><f:render section="InfoIcon" arguments="{link: link}"/></span>
+    <p>
+      <strong>{value.avg -> f:format.number(decimals: decimals)}</strong>{unit}<br>
+      {title}
+    </p>
+    <f:if condition="{value.low} || {value.medium} || {value.high}">
+      <div class="progress" style="height: 3px;">
+        <div class="progress-bar webvitalstracker-progress-green" role="progressbar" style="width: {value.low * 100}%" aria-valuenow="{value.low * 100}" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress-bar webvitalstracker-progress-yellow" role="progressbar" style="width: {value.medium * 100}%" aria-valuenow="{value.medium * 100}" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress-bar webvitalstracker-progress-red" role="progressbar" style="width: {value.high * 100}%" aria-valuenow="{value.high * 100}" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+    </f:if>
+  </div>
+</f:section>
+
+<f:section name="InfoIcon">
+  <a href="{link}" class="webvitalstracker-showOnHover" target="_blank" title="Go to article"
+  ><sup>{core:icon(identifier:'actions-link', size:'small')}</sup></a>
+</f:section>
+</html>

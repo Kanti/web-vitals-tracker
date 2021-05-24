@@ -19,3 +19,48 @@ services:
   Kanti\WebVitalsTracker\Command\GenerateRandomTestDataCommand:
     tags:
       - { name: 'console.command', command: 'webvitalstracker:generateTestData', description: 'Generates random test data vor the web_vitals_tracker extension' }
+
+  dashboard.widget.webvitals.overview:
+    class: 'Kanti\WebVitalsTracker\Widgets\WebVitalsOverviewWidget'
+    arguments:
+      $view: '@dashboard.views.widget'
+    tags:
+      - name: dashboard.widget
+        identifier: 'webvitalsOverview'
+        groupNames: 'webvitals'
+        title: 'LLL:EXT:web_vitals_tracker/Resources/Private/Language/locallang.xlf:widgets.overview'
+        description: 'LLL:EXT:web_vitals_tracker/Resources/Private/Language/locallang.xlf:widgets.overview.description'
+        iconIdentifier: 'content-widget-chart-pie'
+        additionalCssClasses: 'dashboard-item--chart'
+        height: 'small'
+        width: 'large'
+
+  dashboard.widget.webvitals.slowestPages:
+    class: 'Kanti\WebVitalsTracker\Widgets\SlowestPagesWidget'
+    arguments:
+      $view: '@dashboard.views.widget'
+    tags:
+      - name: dashboard.widget
+        identifier: 'webvitalsSlowestPages'
+        groupNames: 'webvitals'
+        title: 'LLL:EXT:web_vitals_tracker/Resources/Private/Language/locallang.xlf:widgets.slowestPages'
+        description: 'LLL:EXT:web_vitals_tracker/Resources/Private/Language/locallang.xlf:widgets.slowestPages.description'
+        iconIdentifier: 'content-widget-chart-pie'
+        additionalCssClasses: 'dashboard-item--chart'
+        height: 'medium'
+        width: 'medium'
+
+  dashboard.widget.webvitals.fastestPages:
+    class: 'Kanti\WebVitalsTracker\Widgets\FastestPagesWidget'
+    arguments:
+      $view: '@dashboard.views.widget'
+    tags:
+      - name: dashboard.widget
+        identifier: 'webvitalsFastestPages'
+        groupNames: 'webvitals'
+        title: 'LLL:EXT:web_vitals_tracker/Resources/Private/Language/locallang.xlf:widgets.fastestPages'
+        description: 'LLL:EXT:web_vitals_tracker/Resources/Private/Language/locallang.xlf:widgets.fastestPages.description'
+        iconIdentifier: 'content-widget-chart-pie'
+        additionalCssClasses: 'dashboard-item--chart'
+        height: 'medium'
+        width: 'medium'

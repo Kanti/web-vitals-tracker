@@ -1,3 +1,5 @@
 vendor
 public
 node_modules
+composer.lock
+var/

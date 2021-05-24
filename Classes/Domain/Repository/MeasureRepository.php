@@ -13,77 +13,12 @@ final class MeasureRepository
 {
     public const TABLENAME = 'tx_webvitalstracker_measure';
     public const WEB_VITALS = ['cls', 'fcp', 'fid', 'lcp', 'ttfb'];
-    public const WEB_VITALS_ZONES = [
-        'cls' => [0.1, 0.25],
-        'fcp' => [1000, 3000],
-        'fid' => [100, 300],
-        'lcp' => [2500, 4000],
-        'ttfb' => [100, 600],
-    ];
 
     private ConnectionPool $connectionPool;
 
     public function __construct(?ConnectionPool $connectionPool = null)
     {
         $this->connectionPool = $connectionPool ?? GeneralUtility::makeInstance(ConnectionPool::class);
-    }
-
-    /**
-     * @param int $pageId
-     * @return array<string, mixed>|null
-     * @throws \Doctrine\DBAL\Exception
-     */
-    public function findData(int $pageId): ?array
-    {
-        $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::TABLENAME)->getConcreteQueryBuilder();
-        $queryBuilder->select(
-            'COUNT(*) as requestCount',
-            'AVG(cls)*100 as cls',
-            'AVG(fcp)/1000 as fcp',
-            'AVG(fid) as fid',
-            'AVG(lcp)/1000 as lcp',
-            'AVG(ttfb) as ttfb',
-        )->from(self::TABLENAME)
-            ->where($queryBuilder->expr()->eq('page_id', $queryBuilder->createNamedParameter($pageId)))
-            ->groupBy('page_id');
-
-        $statement = $queryBuilder->execute();
-        assert($statement instanceof Statement);
-        return $statement->fetch() ?: null;
-    }
-
-    /**
-     * @param int $pageId
-     * @return array<string, array<string, float>>
-     */
-    public function findPercentageData(int $pageId): array
-    {
-        $results = [];
-        foreach (self::WEB_VITALS as $webVital) {
-            [$low, $mid] = self::WEB_VITALS_ZONES[$webVital];
-            $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::TABLENAME)->getConcreteQueryBuilder();
-            $queryBuilder->from(self::TABLENAME)
-                ->select(
-                    'COUNT(*) as count',
-                    "IF($webVital >= $low, IF($webVital >= $mid, 'high', 'medium'), 'low') as cat"
-                )
-                ->where($queryBuilder->expr()->eq('page_id', $queryBuilder->createNamedParameter($pageId)))
-                ->andWhere($queryBuilder->expr()->isNotNull($webVital))
-                ->groupBy('cat');
-            $statement = $queryBuilder->execute();
-            assert($statement instanceof Statement);
-            $rows = $statement->fetchAll() ?: [];
-            $total = array_sum(array_column($rows, 'count'));
-            $results[$webVital] = [
-                'low' => 0.0,
-                'medium' => 0.0,
-                'high' => 0.0,
-            ];
-            foreach ($rows as $row) {
-                $results[$webVital][(string)$row['cat']] = (float)($row['count'] / $total);
-            }
-        }
-        return $results;
     }
 
     /**

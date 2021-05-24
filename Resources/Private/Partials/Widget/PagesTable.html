@@ -1,0 +1,40 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:webvitalstracker="http://typo3.org/ns/Kanti/WebVitalsTracker/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:section name="Main">
+  <div class="widget-content-main">
+    <table class="table-no-borders w-100">
+      <tr>
+        <th>
+          Page
+        </th>
+        <th class="text-end">
+          LCP {averageLcp -> f:format.number(decimals: 2)}s
+        </th>
+        <th class="text-end">
+          Percentage
+        </th>
+      </tr>
+      <f:for each="{data}" as="page">
+        <tr>
+          <td>
+            <a href="{be:uri.editRecord(uid:page.uid, table:'pages', returnUrl: referer)}">
+              <core:icon identifier="actions-document-open"/>
+              {page.title}
+            </a>
+          </td>
+          <td class="text-end">
+            {page.lcp -> f:format.number(decimals: 2)}s
+            {f:if(condition: '{page.diff -> f:format.number(decimals: 2)} >= 0', then: '+')}{page.diff -> f:format.number(decimals: 2)}
+          </td>
+          <td class="text-end">
+            {page.percentage -> f:format.number(decimals: 1)}%
+          </td>
+        </tr>
+      </f:for>
+    </table>
+  </div>
+</f:section>
+</html>

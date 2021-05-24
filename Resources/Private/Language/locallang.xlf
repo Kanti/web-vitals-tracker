@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+  <file source-language="en">
+    <header/>
+    <body>
+      <trans-unit id="dashboardPresets.webvitals">
+        <source>Web Vitals</source>
+      </trans-unit>
+      <trans-unit id="dashboardPresets.webvitals.description">
+        <source>Fully featured Dashboard for all the Web Vitals</source>
+      </trans-unit>
+
+      <trans-unit id="widgetGroups.webvitals">
+        <source>Web Vitals</source>
+      </trans-unit>
+
+      <trans-unit id="widgets.overview">
+        <source>Web Vitals Overview</source>
+      </trans-unit>
+      <trans-unit id="widgets.overview.description">
+        <source>See the averages of the whole TYPO3 Installation</source>
+      </trans-unit>
+
+      <trans-unit id="widgets.slowestPages">
+        <source>Slowest Pages</source>
+      </trans-unit>
+      <trans-unit id="widgets.slowestPages.description">
+        <source>See the slowest Pages of the whole TYPO3 Installation</source>
+      </trans-unit>
+
+      <trans-unit id="widgets.fastestPages">
+        <source>Fastest Pages</source>
+      </trans-unit>
+      <trans-unit id="widgets.fastestPages.description">
+        <source>See the fastest Pages of the whole TYPO3 Installation</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

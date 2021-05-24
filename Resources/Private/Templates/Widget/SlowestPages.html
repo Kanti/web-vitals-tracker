@@ -1,0 +1,9 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:webvitalstracker="http://typo3.org/ns/Kanti/WebVitalsTracker/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:render partial="Widget/Header" section="Main" arguments="{title: '{f:translate(key:\'LLL:EXT:web_vitals_tracker/Resources/Private/Language/locallang.xlf:widgets.slowestPages\')}'}"/>
+<f:render partial="Widget/PagesTable" section="Main" arguments="{_all}"/>
+</html>

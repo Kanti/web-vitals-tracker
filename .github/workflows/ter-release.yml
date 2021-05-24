@@ -1,14 +1,29 @@
 name: TER release
 
-on:
-  push:
-    tags:
-      - '*'
+on: [push, pull_request]
 
 jobs:
+  lint-php:
+    name: Linting php with grumphp
+    runs-on: ubuntu-latest
+    container:
+      image: kanti/buildy:7.4
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: ~/.composer/cache/files
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - run: composer install --no-interaction --no-progress --no-suggest --ignore-platform-reqs --no-plugins --no-scripts
+      - run: ./vendor/bin/grumphp run --ansi
+
   ter-release:
     name: TER release
     runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: [ lint-php]
     env:
       TYPO3_EXTENSION_KEY: 'web_vitals_tracker'
       REPOSITORY_URL: 'https://github.com/Kanti/web-vitals-tracker'
@@ -25,7 +40,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          php-version: '7.4'
           extensions: intl, mbstring, xml, soap, zip, curl
 
       - name: Install typo3/tailor

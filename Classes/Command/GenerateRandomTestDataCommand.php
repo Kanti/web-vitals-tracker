@@ -6,6 +6,7 @@ namespace Kanti\WebVitalsTracker\Command;
 
 use Doctrine\DBAL\Driver\Statement;
 use Doctrine\DBAL\FetchMode;
+use Kanti\WebVitalsTracker\Domain\Repository\AnalyticalRepository;
 use Kanti\WebVitalsTracker\Domain\Repository\MeasureRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -45,11 +46,11 @@ final class GenerateRandomTestDataCommand extends Command
                         'uuid' => $uuid,
                         'page_id' => $pageUids[array_rand($pageUids)],
                         'sys_language' => $sysLanguageUid,
-                        'cls' => random_int(0, (int)(MeasureRepository::WEB_VITALS_ZONES['cls'][1] * 2 * 100)) / 100,
-                        'fcp' => random_int(0, MeasureRepository::WEB_VITALS_ZONES['fcp'][1] * 2 * 100) / 100,
-                        'fid' => random_int(0, MeasureRepository::WEB_VITALS_ZONES['fid'][1] * 2 * 100) / 100,
-                        'lcp' => random_int(0, MeasureRepository::WEB_VITALS_ZONES['lcp'][1] * 2 * 100) / 100,
-                        'ttfb' => random_int(0, MeasureRepository::WEB_VITALS_ZONES['ttfb'][1] * 2 * 100) / 100,
+                        'cls' => random_int(0, (int)(AnalyticalRepository::WEB_VITALS_ZONES['cls'][1] * 2 * 100)) / 100,
+                        'fcp' => random_int(0, AnalyticalRepository::WEB_VITALS_ZONES['fcp'][1] * 2 * 100) / 100,
+                        'fid' => random_int(0, AnalyticalRepository::WEB_VITALS_ZONES['fid'][1] * 2 * 100) / 100,
+                        'lcp' => random_int(0, AnalyticalRepository::WEB_VITALS_ZONES['lcp'][1] * 2 * 100) / 100,
+                        'ttfb' => random_int(0, AnalyticalRepository::WEB_VITALS_ZONES['ttfb'][1] * 2 * 100) / 100,
                         'date' => date("Y-m-d H:i:s", random_int(time() - ($daysBack * 24 * 60 * 60), time())),
                     ]
                 )->execute();
