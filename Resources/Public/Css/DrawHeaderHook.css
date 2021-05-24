@@ -3,6 +3,10 @@
   --webvitalstracker-icon-edge-length: 40px;
 }
 
+.w-100 {
+  width: 100%;
+}
+
 .webvitalstracker-headline {
   padding-right: 12px;
   padding-left: 12px;
