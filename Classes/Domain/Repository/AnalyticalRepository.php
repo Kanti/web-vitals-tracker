@@ -60,7 +60,8 @@ final class AnalyticalRepository
         )->from(MeasureRepository::TABLENAME);
         if ($pageUid !== -1) {
             $queryBuilder
-                ->where($queryBuilder->expr()->eq('page_id', $queryBuilder->createNamedParameter($pageUid)));
+                ->where($queryBuilder->expr()->eq('page_id', $queryBuilder->createNamedParameter($pageUid)))
+                ->groupBy('page_id');
         }
 
         $statement = $queryBuilder->execute();
@@ -92,7 +93,7 @@ final class AnalyticalRepository
     private function getPageAnalyticsDb(int $pageUid): ?array
     {
         $data = $this->getAverages($pageUid);
-        if (!$data) {
+        if (!$data || $data['requestCount'] === 0) {
             return null;
         }
         $requestCount = $data['requestCount'];
