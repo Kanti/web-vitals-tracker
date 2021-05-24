@@ -17,7 +17,10 @@ The data is sent to the TYPO3 and saved in the database.
 
 ## how dose it look like 👀
 
-![A test image](./Documentation/Images/wev_vitals_screenshot.png)
+![Screenshot of the Page overview](./Documentation/Images/wev_vitals_screenshot.png)
+
+### For TYPO3 10 and 11 the Dashboard:
+![Screenshot of the Dashboard](./Documentation/Images/web_vitals_dashboard_screenshot.png)
 
 ## How to contribute 🤝
 
@@ -53,7 +56,6 @@ after 1_000_000 requests MySQL gets pretty slow (1,2s on my Laptop)
 
 - make it compatible with php 7.2? 7.3?
 - save the requests of elder data in aggregate form (to allow large websites to use it)
-- add a Dashboard Component
 
 ## Author 🚶‍♂️
 
