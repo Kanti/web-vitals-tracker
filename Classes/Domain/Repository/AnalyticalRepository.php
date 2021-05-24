@@ -181,6 +181,7 @@ final class AnalyticalRepository
         )->from(MeasureRepository::TABLENAME, 'm')
             ->join('m', 'pages', 'p', 'm.page_id = p.uid')
             ->where('p.deleted = 0')
+            ->andWhere($queryBuilder->expr()->isNotNull('m.lcp'))
             ->groupBy('m.page_id')
             ->orderBy('lcp', $order)
             ->setMaxResults(10);
