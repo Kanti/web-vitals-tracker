@@ -18,7 +18,7 @@ services:
 
   Kanti\WebVitalsTracker\Command\GenerateRandomTestDataCommand:
     tags:
-      - { name: 'console.command', command: 'webvitalstracker:generateTestData', description: 'Generates random test data vor the web_vitals_tracker extension' }
+      - { name: 'console.command', command: 'webvitalstracker:generateTestData', description: 'Generates random test data for the web_vitals_tracker extension' }
 
   dashboard.widget.webvitals.overview:
     class: 'Kanti\WebVitalsTracker\Widgets\WebVitalsOverviewWidget'
