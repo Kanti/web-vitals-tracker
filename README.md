@@ -9,13 +9,13 @@ _[More information about Web Vitals](https://web.dev/vitals/)_
 
 Or via [the Extension Reposiotry](https://extensions.typo3.org/extension/web_vitals_tracker)
 
-## How dose it work 🦾
+## How does it work 🦾
 
 We inject a small javascript file _(2.6kb gziped)_ into the frontend,  
 that uses the [web-vitals package](https://www.npmjs.com/package/web-vitals) to collect the timings of every page request.  
 The data is sent to the TYPO3 and saved in the database.
 
-## how dose it look like 👀
+## how does it look like 👀
 
 ![Screenshot of the Page overview](./Documentation/Images/wev_vitals_screenshot.png)
 
@@ -32,7 +32,7 @@ cd web-vitals
 composer update
 git commit -m '✨ fancy message that explains what was done and why'
 # hint: use https://gitmoji.dev/ for a colorful commit message
-git remote set-url origin git@github.com:<yourName>/web-vitals.git
+git remote set-url origin git@github.com:<yourName>/web-vitals-tracker.git
 git push
 # create PR
 ```
