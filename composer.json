@@ -12,6 +12,9 @@
     }
   ],
   "autoload": {
+    "files": [
+      "compat.php"
+    ],
     "psr-4": {
       "Kanti\\WebVitalsTracker\\": "Classes"
     }
