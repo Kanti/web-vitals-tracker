@@ -1,0 +1,2 @@
+# cat=basic/enable; type=boolean; label=LLL:EXT:web_vitals_tracker/Resources/Private/Language/locallang.xlf:config.displayInfoInPageModule
+displayInfoInPageModule = 1

@@ -34,6 +34,10 @@
       <trans-unit id="widgets.fastestPages.description">
         <source>See the fastest Pages of the whole TYPO3 Installation</source>
       </trans-unit>
+
+      <trans-unit id="config.displayInfoInPageModule">
+        <source>Display Info in PageModule</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

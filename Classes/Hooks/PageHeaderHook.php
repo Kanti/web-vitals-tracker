@@ -36,9 +36,9 @@ final class PageHeaderHook
     {
         $pageId = (int)$_GET['id'];
         $hasAccess = $GLOBALS['BE_USER']->check('non_exclude_fields', 'pages:tx_webvitalstracker_measure');
-        $disableInfo = (bool)($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['web_vitals_tracker']['disableInfo'] ?? false);
+        $displayInfoInPageModule = (bool)($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['web_vitals_tracker']['displayInfoInPageModule'] ?? true);
 
-        if (!$hasAccess || $disableInfo) {
+        if (!$hasAccess || !$displayInfoInPageModule) {
             return '';
         }
 
