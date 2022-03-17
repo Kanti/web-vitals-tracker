@@ -1,5 +1,8 @@
 # Web Vitals Tracker 🔺🟨🟢
 
+![downloads badge](https://shields.io/endpoint?url=https://typo3-badges.dev/badge/web_vitals_tracker/downloads/shields)
+![version badge](https://shields.io/endpoint?url=https://typo3-badges.dev/badge/web_vitals_tracker/version/shields)
+
 Real Measurement Web Vitals Statistic for your TYPO3  
 _[More information about Web Vitals](https://web.dev/vitals/)_
 
